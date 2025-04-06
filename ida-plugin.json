@@ -1,0 +1,8 @@
+{
+  "IDAMetadataDescriptorVersion": 1,
+  "plugin": {
+    "name": "Frida Tools",
+    "entryPoint": "main.py"
+  }
+}
+
