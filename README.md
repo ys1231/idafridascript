@@ -14,7 +14,7 @@ English | [简体中文](README-zh-CN.md)
 
 ```shell
 # linux & mac
-git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/iyueexample
+git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/frida
 ```
 ![image](resources/screenshot-20250407-020045.png)
 
