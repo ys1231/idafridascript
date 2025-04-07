@@ -13,14 +13,71 @@ var func_offset = FUNC_OFFSET
 var args_list = ARGS_LIST
 var return_type = RETURN_TYPE
 
+function printArgs(argsList, args) {
+    for (var i = 0; i < argsList.length; i++) {
+        var argType = argsList[i].type;
+        var argValue = args[i];
+        var formattedValue;
+
+        switch (argType) {
+            case "int":
+                formattedValue = argValue.toInt32();
+                break;
+            case "const char **":
+            case "char **":
+                formattedValue = Memory.readUtf8String(argValue.readPointer());
+                break;
+            case "char *":
+                formattedValue = Memory.readUtf8String(argValue);
+                break;
+            case "std::string": // 添加对 std::string 类型的支持
+                formattedValue = Memory.readUtf8String(argValue.readPointer());
+                break;
+            case "void *":
+                formattedValue = argValue.toString();
+                break;
+            case "float":
+                formattedValue = argValue.readFloat();
+                break;
+            case "double":
+                formattedValue = argValue.readDouble();
+                break;
+            case "long":
+                formattedValue = argValue.toLong();
+                break;
+            case "long long":
+                formattedValue = argValue.toLong();
+                break;
+            case "unsigned int":
+                formattedValue = argValue.toUInt32();
+                break;
+            case "unsigned long":
+                formattedValue = argValue.toULong();
+                break;
+            case "unsigned long long":
+                formattedValue = argValue.toULong();
+                break;
+            case "size_t":
+                formattedValue = argValue.toULong();
+                break;
+            default:
+                formattedValue = argValue.toString();
+                break;
+        }
+
+        console.log(">> args[" + i + "]: " + argType + " " + argsList[i].name + " : " + formattedValue);
+    }
+}
+
 function hookFunc(address, argsList) {
     Interceptor.attach(address, {
         onEnter: function (args) {
             console.log(">> Hooking " + address.toString());
             if (argsList.length>0) {
-                for (var i = 0; i < argsList.length; i++) {
-                    console.log(">> args[" + i + "]: " + argsList[i].type + " " + argsList[i].name+" : "+args[i])
-                }
+                // for (var i = 0; i < argsList.length; i++) {
+                //     console.log(">> args[" + i + "]: " + argsList[i].type + " " + argsList[i].name+" : "+args[i])
+                // }
+                printArgs(argsList,args)
             }
         }, onLeave: function (retval) {
             console.log("Retval: " + retval);

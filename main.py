@@ -7,8 +7,7 @@ import ida_ida
 import sys
 import ida_idaapi
 from loguru import logger
-
-from frida import FridaPlugmod
+from fridaui import FridaPlugmod
 
 logger.remove()
 '''
@@ -34,7 +33,7 @@ class FridaPlugin(ida_idaapi.plugin_t):
         2. 注册各种动作以及初始化 ui 钩子都在这里
         :return:
         """
-        logger.info(">>>FridaPlugin: 插件初始化.")
+        logger.info(">>>FridaPlugin: init.")
         self.__frida_plugin.run(1)
         return self.__frida_plugin
 
