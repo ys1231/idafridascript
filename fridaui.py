@@ -58,9 +58,11 @@ class FridaHandler(ida_kernwin.action_handler_t):
         logger.debug(f"func offset: {hex(func.start_ea)}")
 
         args_list = []
+        index = 1
         for arg in func_type.iter_func():
-            logger.debug(f"args: {arg.type} {arg.name}")
-            args_list.append({"type": str(arg.type), "name": str(arg.name)})
+            logger.debug(f"args: {arg.type} {arg.name if str(arg.name) else f'a{index}'}")
+            args_list.append({"type": str(arg.type), "name": arg.name if str(arg.name) else f"a{index}"})
+            index+=1
         return_type = func_type.get_rettype()
         logger.debug(f"return type: {return_type}")
 

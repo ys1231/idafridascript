@@ -43,8 +43,6 @@ function printArgs(argsList, args) {
                 formattedValue = argValue.readDouble();
                 break;
             case "long":
-                formattedValue = argValue.toLong();
-                break;
             case "long long":
                 formattedValue = argValue.toLong();
                 break;
@@ -52,20 +50,16 @@ function printArgs(argsList, args) {
                 formattedValue = argValue.toUInt32();
                 break;
             case "unsigned long":
-                formattedValue = argValue.toULong();
-                break;
             case "unsigned long long":
-                formattedValue = argValue.toULong();
-                break;
             case "size_t":
                 formattedValue = argValue.toULong();
                 break;
             default:
-                formattedValue = argValue.toString();
+                formattedValue = argValue;
                 break;
         }
 
-        console.log(">> args[" + i + "]: " + argType + " " + argsList[i].name + " : " + formattedValue);
+        console.log(">> args[" + i + "]: type: " + argType + " name: " + argsList[i].name + " value: " + formattedValue);
     }
 }
 
@@ -91,12 +85,12 @@ function hookFunc(address, argsList) {
  * hook main script func
  */
 function hookMainScript() {
-    var libModule = Process.findModuleByName(module_name)
+    var libModule = Process.getModuleByName(module_name)
     if (libModule) {
         console.log(">> libModule base address: 0x", libModule.base.toString(16))
         console.log(">> hook func: " + func_name)
         console.log(">> hook func offset: " + func_offset)
-        console.log(">> args list: " + args_list)
+        console.log(">> args list: " + JSON.stringify(args_list))
         console.log(">> func return type: " + return_type)
         hookFunc(libModule.base.add(func_offset), args_list)
     } else {

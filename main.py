@@ -28,11 +28,6 @@ class FridaPlugin(ida_idaapi.plugin_t):
         self.__frida_plugin = FridaPlugmod()
 
     def init(self):
-        """
-        1. ida 启动插件被加载时被调用
-        2. 注册各种动作以及初始化 ui 钩子都在这里
-        :return:
-        """
         logger.info(">>>FridaPlugin: init.")
         self.__frida_plugin.run(1)
         return self.__frida_plugin
