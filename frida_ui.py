@@ -20,10 +20,10 @@ class FridaHandler(ida_kernwin.action_handler_t):
     def __init__(self):
         current_path = os.path.dirname(os.path.abspath(__file__))
         self.__template_script_path = current_path + "/resources/hook_func_inject.js"
-        logger.debug(f">>>FridaHandler: Template script path is {self.__template_script_path}")
+        logger.debug(f">>> FridaHandler: Template script path is {self.__template_script_path}")
 
     def update(self, ctx: ida_kernwin.action_ctx_base_t):
-        if ctx.widget_type == ida_kernwin.BWN_DISASM:
+        if ctx.widget_type == ida_kernwin.BWN_DISASM or ctx.widget_type == ida_kernwin.BWN_PSEUDOCODE:
             return ida_kernwin.AST_ENABLE_FOR_WIDGET
         else:
             return ida_kernwin.AST_DISABLE_FOR_WIDGET
@@ -42,37 +42,40 @@ class FridaHandler(ida_kernwin.action_handler_t):
             return
         clipboard: QClipboard = QApplication.clipboard()
         clipboard.setText(script)
-        logger.info(f">>>FridaHandler: Copy script to clipboard")
+        logger.info(f">>> FridaHandler: Copy script to clipboard")
 
     def __get_func_info(self, ctx):
-
-        # 1. 获取当前指针地址
-        ea = ida_kernwin.get_screen_ea()
-        func: func_t = get_func(ea)
-        if func is None:
-            logger.error(f">>>FridaHandler: ea not in function")
+        try:
+            # 1. 获取当前指针地址
+            ea = ida_kernwin.get_screen_ea()
+            func: func_t = get_func(ea)
+            if func is None:
+                logger.error(f">>> FridaHandler: ea not in function")
+                return None
+            func_type = func.prototype
+    
+            logger.debug(f"func name: {func.get_name()}")
+            logger.debug(f"func offset: {hex(func.start_ea)}")
+    
+            args_list = []
+            index = 1
+            for arg in func_type.iter_func():
+                logger.debug(f"args: {arg.type} {arg.name if str(arg.name) else f'a{index}'}")
+                args_list.append({"type": str(arg.type), "name": arg.name if str(arg.name) else f"a{index}"})
+                index+=1
+            return_type = func_type.get_rettype()
+            logger.debug(f"return type: {return_type}")
+    
+            return {
+                "module_name": get_root_filename(),
+                "func_name": func.get_name(),
+                "func_offset": hex(func.start_ea),
+                "args": args_list,
+                "return_type": str(return_type)
+            }
+        except Exception as e:
+            logger.error(f">>> FridaHandler: get func info error: {e.args}, Please click on the table first to generate function information.")
             return None
-        func_type = func.prototype
-
-        logger.debug(f"func name: {func.get_name()}")
-        logger.debug(f"func offset: {hex(func.start_ea)}")
-
-        args_list = []
-        index = 1
-        for arg in func_type.iter_func():
-            logger.debug(f"args: {arg.type} {arg.name if str(arg.name) else f'a{index}'}")
-            args_list.append({"type": str(arg.type), "name": arg.name if str(arg.name) else f"a{index}"})
-            index+=1
-        return_type = func_type.get_rettype()
-        logger.debug(f"return type: {return_type}")
-
-        return {
-            "module_name": get_root_filename(),
-            "func_name": func.get_name(),
-            "func_offset": hex(func.start_ea),
-            "args": args_list,
-            "return_type": str(return_type)
-        }
 
     def __generate_script(self, data):
         try:
@@ -81,7 +84,7 @@ class FridaHandler(ida_kernwin.action_handler_t):
             func_offset = data["func_offset"]
             args_list = data["args"]
             return_type = data["return_type"]
-            with open(self.__template_script_path, "r") as f:
+            with open(self.__template_script_path, "r", encoding="utf-8") as f:
                 jscode = f.read()
                 jscode = jscode.replace("MODULE_NAME", f'"{module_name}"')
                 jscode = jscode.replace("FUNC_NAME", f'"{func_name}"')

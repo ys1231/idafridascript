@@ -8,6 +8,12 @@ English | [简体中文](README-zh-CN.md)
 
 *   Simply press the shortcut key `F` in the assembly window to generate the `hook` code for the function where the current pointer is located.
 
+## List of features
+
+1. Generate the hook code for the function
+2. Generate code for the Flutter SSL Bypass Frida Hook
+
+
 # How to continue development
 
 1. After using the `clone` project, open the project with `Pycharm` and add `IDA Pro` plug-in development environment

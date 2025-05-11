@@ -6,6 +6,11 @@
 
 *   只要在汇编窗口中按下快捷键 `F` ，就可以生成当前指针所在函数的 `hook` 代码。
 
+## 功能列表
+
+1. 生成对函数的 hook 代码
+2. 生成针对 flutter ssl bypass frida hook 代码
+
 # 如何继续发展
 
 1. 使用 `clone` 项目后，用 `Pycharm` 打开项目，添加 `IDA Pro` 插件开发环境

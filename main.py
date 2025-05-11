@@ -7,7 +7,9 @@ import ida_ida
 import sys
 import ida_idaapi
 from loguru import logger
-from fridaui import FridaPlugmod
+
+from flutter_ssl_bypass import FlutterPlugmod
+from frida_ui import FridaPlugmod
 
 logger.remove()
 '''
@@ -26,10 +28,12 @@ class FridaPlugin(ida_idaapi.plugin_t):
 
     def __init__(self):
         self.__frida_plugin = FridaPlugmod()
+        self.__flutter_plugin = FlutterPlugmod()
 
     def init(self):
         logger.info(">>>FridaPlugin: init.")
         self.__frida_plugin.create_popup_menu(1)
+        self.__flutter_plugin.create_popup_menu()
         return self.__frida_plugin
 
 def PLUGIN_ENTRY():
