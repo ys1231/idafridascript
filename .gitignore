@@ -146,4 +146,5 @@ TMP*
 node_modules
 package.json
 package-lock.json
-.python-version
+#.python-version
+.venv

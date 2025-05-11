@@ -29,7 +29,7 @@ class FridaPlugin(ida_idaapi.plugin_t):
 
     def init(self):
         logger.info(">>>FridaPlugin: init.")
-        self.__frida_plugin.run(1)
+        self.__frida_plugin.create_popup_menu(1)
         return self.__frida_plugin
 
 def PLUGIN_ENTRY():

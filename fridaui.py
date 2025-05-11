@@ -19,7 +19,7 @@ class FridaHandler(ida_kernwin.action_handler_t):
 
     def __init__(self):
         current_path = os.path.dirname(os.path.abspath(__file__))
-        self.__template_script_path = current_path + "/resources/inject.js"
+        self.__template_script_path = current_path + "/resources/hook_func_inject.js"
         logger.debug(f">>>FridaHandler: Template script path is {self.__template_script_path}")
 
     def update(self, ctx: ida_kernwin.action_ctx_base_t):
@@ -103,7 +103,7 @@ class FridaUIHooks(ida_kernwin.UI_Hooks):
 
     def finish_populating_widget_popup(self, widget, popup_handle, ctx):
         if ida_kernwin.get_widget_type(widget) == ida_kernwin.BWN_DISASM:
-            ida_kernwin.attach_action_to_popup(widget, popup_handle, self.__action_name)
+            ida_kernwin.attach_action_to_popup(widget, popup_handle, self.__action_name,"Frida Tools/")
 
 
 class FridaPlugmod(plugmod_t):
@@ -126,7 +126,7 @@ class FridaPlugmod(plugmod_t):
         logger.debug(f"FridaPlugmod: Custon icon path is {current_path}/resources/frida.png")
         return ida_kernwin.load_custom_icon(file_name=current_path + "/resources/frida.png", format="png")
 
-    def run(self, arg):
+    def create_popup_menu(self, arg):
         logger.info(f"Frida Plugmod is loaded arg: {arg}")
         try:
             action_desc = action_desc_t(
