@@ -1,5 +1,6 @@
 /**
  * Created by iyue on 2025/5/11 22:15.
+ * 优先使用附加模式 spwan 可能会导致 app 异常
  */
 
 var module_name = MODULE_NAME
@@ -19,30 +20,10 @@ function hook_ssl_verify_result(address) {
     });
 }
 
-function hook_android_dlopen_ext() {
-    const android_dlopen_extPtr = Module.findExportByName('libc.so', 'android_dlopen_ext')
-    Interceptor.attach(android_dlopen_extPtr, {
-        onEnter: function (args) {
-            const pathptr = args[0]
-            if (pathptr != 0 && pathptr != undefined && pathptr != null) {
-                var path = pathptr.readCString()
-                if (path.indexOf(module_name) != -1) {
-                    console.log(`call android_dlopen_ext(${path})`)
-                    this.isloadso = true
-                }
-            }
-        }, onLeave: function (retval) {
-            // do something
-            if (this.isloadso) {
-                this.isloadso = false
-                var libflutter = Process.findModuleByName(module_name)
-                console.log("libflutter base address: 0x", libflutter.base.toString(16))
-                hook_ssl_verify_result(libflutter.base.add(func_start_offset));
-            }
-
-        }
-    })
+function main() {
+    var libflutter = Process.findModuleByName(module_name)
+    console.log("libflutter base address: 0x", libflutter.base.toString(16))
+    hook_ssl_verify_result(libflutter.base.add(func_start_offset))
 }
 
-hook_android_dlopen_ext()
-
+setTimeout(main,0)
