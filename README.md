@@ -8,6 +8,12 @@ English | [简体中文](README-zh-CN.md)
 
 *   Simply press the shortcut key `F` in the assembly window to generate the `hook` code for the function where the current pointer is located.
 
+## Linux 和 Mac
+
+```shell
+rm -rf $HOME/.idapro/plugins/frida && git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/frida
+```
+
 ## List of features
 
 1. Generate the hook code for the function
@@ -18,10 +24,6 @@ English | [简体中文](README-zh-CN.md)
 
 1. After using the `clone` project, open the project with `Pycharm` and add `IDA Pro` plug-in development environment
 
-```shell
-# linux & mac
-git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/frida
-```
 ![image](resources/screenshot-20250407-020045.png)
 
 
