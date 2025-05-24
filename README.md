@@ -13,6 +13,15 @@ uv init
 uv sync
 pip install "mcp[cli]"
 ```
+```json
+{
+    "mcpServers": {
+        "idamcp": {
+            "serverUrl": "http://127.0.0.1:12345/sse"
+        }
+    }
+}
+```
 
 ## Linux & Mac
 
