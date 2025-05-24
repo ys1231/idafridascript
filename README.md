@@ -8,6 +8,12 @@ English | [简体中文](README-zh-CN.md)
 
 *   Simply press the shortcut key `F` in the assembly window to generate the `hook` code for the function where the current pointer is located.
 
+```shell
+uv init
+uv sync
+pip install "mcp[cli]"
+```
+
 ## Linux & Mac
 
 ```shell
@@ -18,6 +24,7 @@ rm -rf $HOME/.idapro/plugins/frida && git clone https://github.com/ys1231/idafri
 
 1. Generate the hook code for the function
 2. Generate code for the Flutter SSL Bypass Frida Hook
+3. Add a base mcp server, which can be used in IDA Pro to generate Flutter bypass hook scripts
 
 
 # How to continue development
@@ -26,4 +33,5 @@ rm -rf $HOME/.idapro/plugins/frida && git clone https://github.com/ys1231/idafri
 
 ![image](resources/screenshot-20250407-020045.png)
 
+![img.png](resources/img.png)
 

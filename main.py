@@ -36,6 +36,9 @@ class FridaPlugin(ida_idaapi.plugin_t):
         self.__flutter_plugin.create_popup_menu()
         return self.__frida_plugin
 
+    def term(self):
+        pass
+
 def PLUGIN_ENTRY():
     logger.info(f">>>FridaPlugin: Frida Tools install")
     if 910 != ida_ida.inf_get_version():

@@ -4,15 +4,15 @@
 # @File frida.py
 # @Software: PyCharm
 import os
-
 import ida_kernwin
+from loguru import logger
 from PyQt5.QtGui import QClipboard
 from PyQt5.QtWidgets import QApplication
 from ida_funcs import get_func, func_t
 from ida_idaapi import plugmod_t
 from ida_kernwin import action_desc_t
 from ida_nalt import get_root_filename
-from loguru import logger
+from idapluginserver import start_server
 
 
 class FridaHandler(ida_kernwin.action_handler_t):
@@ -122,6 +122,10 @@ class FridaPlugmod(plugmod_t):
         self.__shortcut = "F"
         self.__tooltip = "Frida Helper"
         self.__ui_hook = FridaUIHooks(self.__action_name)
+
+    def run(self, arg):
+        logger.debug(">>>FridaPlugin: run arg: " + str(arg))
+        start_server()
 
     @staticmethod
     def __custon_icon():
