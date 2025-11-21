@@ -69,7 +69,7 @@ class FlutterHandler(ida_kernwin.action_handler_t):
             module_name = data["module_name"]
             func_start_offset = data["func_start_offset"]
 
-            with open(self.__template_script_path, "r") as f:
+            with open(self.__template_script_path, "r", encoding="utf-8") as f:
                 jscode = f.read()
                 jscode = jscode.replace("MODULE_NAME", f'"{module_name}"')
                 jscode = jscode.replace("FUNC_START_OFFSET", str(func_start_offset))
