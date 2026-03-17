@@ -1,8 +1,46 @@
 {
   "IDAMetadataDescriptorVersion": 1,
   "plugin": {
-    "name": "Frida Tools",
-    "entryPoint": "main.py"
+    "name": "Frida_Tools",
+    "entryPoint": "main.py",
+    "version": "0.0.2",
+    "idaVersions": [
+      "9.0",
+      "9.1",
+      "9.2",
+      "9.3"
+    ],
+    "authors": [
+      {
+        "name": "iyue",
+        "email": "ys1231@126.com"
+      }
+    ],
+    "urls": {
+      "repository": "https://github.com/ys1231/idafridascript"
+    },
+    "platforms": [
+      "windows-x86_64",
+      "linux-x86_64",
+      "macos-x86_64",
+      "macos-aarch64"
+    ],
+    "description": "一个用于生成frida脚本的ida插件/An ida plug-in for generating frida scripts",
+    "logoPath": "resources/main.png",
+    "categories": [
+      "ui-ux-and-visualization",
+      "decompilation"
+    ],
+    "keywords": [
+      "hook",
+      "generate frida script"
+    ],
+    "license": "GPL-3.0",
+    "pythonDependencies": [
+      "loguru>=0.7.3",
+      "mcp[cli]>=1.9.1",
+      "pyqt5>=5.15.11",
+      "pyside6>=6.10.2"
+    ]
   }
 }
-

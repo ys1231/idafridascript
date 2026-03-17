@@ -1,3 +1,5 @@
+[English](README.md) | 简体中文
+
 # 项目描述
 
 *   这是一个基于 `IDA Pro 9.1` 的插件脚本，可以在汇编窗口一键生成 `frida hook` 函数的 `js` 代码
@@ -6,6 +8,7 @@
 
 *   只要在汇编窗口中按下快捷键 `F` ，就可以生成当前指针所在函数的 `hook` 代码。
 ```shell
+cd $HOME/.idapro/plugins/fridatools
 uv init
 uv sync
 pip install "mcp[cli]"
@@ -22,7 +25,7 @@ pip install "mcp[cli]"
 
 ## Linux 和 Mac
 ```shell
-rm -rf $HOME/.idapro/plugins/frida && git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/frida
+rm -rf $HOME/.idapro/plugins/fridatools && git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/fridatools
 ```
 
 ## 功能列表

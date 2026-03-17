@@ -5,9 +5,8 @@
 # @Software: PyCharm
 import os
 import ida_kernwin
+from ida_shim import *
 from loguru import logger
-from PyQt5.QtGui import QClipboard
-from PyQt5.QtWidgets import QApplication
 from ida_funcs import get_func, func_t
 from ida_idaapi import plugmod_t
 from ida_kernwin import action_desc_t
@@ -20,7 +19,7 @@ class FridaHandler(ida_kernwin.action_handler_t):
     def __init__(self):
         current_path = os.path.dirname(os.path.abspath(__file__))
         self.__template_script_path = current_path + "/resources/hook_func_inject.js"
-        logger.debug(f">>> FridaHandler: Template script path is {self.__template_script_path}")
+        logger.debug(f"[frida_tools] Template script path is {self.__template_script_path}")
 
     def update(self, ctx: ida_kernwin.action_ctx_base_t):
         if ctx.widget_type == ida_kernwin.BWN_DISASM or ctx.widget_type == ida_kernwin.BWN_PSEUDOCODE:
@@ -42,7 +41,7 @@ class FridaHandler(ida_kernwin.action_handler_t):
             return
         clipboard: QClipboard = QApplication.clipboard()
         clipboard.setText(script)
-        logger.info(f">>> FridaHandler: Copy script to clipboard")
+        logger.info(f"[frida_tools] Copy script to clipboard")
 
     def __get_func_info(self, ctx):
         try:
@@ -50,22 +49,22 @@ class FridaHandler(ida_kernwin.action_handler_t):
             ea = ida_kernwin.get_screen_ea()
             func: func_t = get_func(ea)
             if func is None:
-                logger.error(f">>> FridaHandler: ea not in function")
+                logger.error(f"[frida_tools] ea not in function")
                 return None
             func_type = func.prototype
-    
-            logger.debug(f"func name: {func.get_name()}")
-            logger.debug(f"func offset: {hex(func.start_ea)}")
-    
+
+            logger.debug(f"[frida_tools] func name: {func.get_name()}")
+            logger.debug(f"[frida_tools] func offset: {hex(func.start_ea)}")
+
             args_list = []
             index = 1
             for arg in func_type.iter_func():
                 logger.debug(f"args: {arg.type} {arg.name if str(arg.name) else f'a{index}'}")
                 args_list.append({"type": str(arg.type), "name": arg.name if str(arg.name) else f"a{index}"})
-                index+=1
+                index += 1
             return_type = func_type.get_rettype()
-            logger.debug(f"return type: {return_type}")
-    
+            logger.debug(f"[frida_tools] return type: {return_type}")
+
             return {
                 "module_name": get_root_filename(),
                 "func_name": func.get_name(),
@@ -74,7 +73,8 @@ class FridaHandler(ida_kernwin.action_handler_t):
                 "return_type": str(return_type)
             }
         except Exception as e:
-            logger.error(f">>> FridaHandler: get func info error: {e.args}, Please click on the table first to generate function information.")
+            logger.error(
+                f"[frida_tools] get func info error: {e.args}, Please click on the table first to generate function information.")
             return None
 
     def __generate_script(self, data):
@@ -94,7 +94,7 @@ class FridaHandler(ida_kernwin.action_handler_t):
 
                 return jscode
         except Exception as e:
-            logger.error(f"FridaHandler: generate script error: {e}")
+            logger.error(f"[frida_tools] generate script error: {e}")
             return None
 
 
@@ -106,13 +106,13 @@ class FridaUIHooks(ida_kernwin.UI_Hooks):
 
     def finish_populating_widget_popup(self, widget, popup_handle, ctx):
         if ida_kernwin.get_widget_type(widget) == ida_kernwin.BWN_DISASM:
-            ida_kernwin.attach_action_to_popup(widget, popup_handle, self.__action_name,"Frida Tools/")
+            ida_kernwin.attach_action_to_popup(widget, popup_handle, self.__action_name, "Frida Tools/")
 
 
 class FridaPlugmod(plugmod_t):
 
     def __del__(self):
-        logger.info("Frida Plugmod is unloaded")
+        logger.info("[frida_tools] Frida Plugmod is unloaded")
 
     def __init__(self):
 
@@ -120,21 +120,21 @@ class FridaPlugmod(plugmod_t):
         self.__popup_menu_name = "Copy frida script"
         self.__action_handler = FridaHandler()
         self.__shortcut = "F"
-        self.__tooltip = "Frida Helper"
+        self.__tooltip = "拷贝 Hook 当前函数的 frida 脚本"
         self.__ui_hook = FridaUIHooks(self.__action_name)
 
     def run(self, arg):
-        logger.debug(">>>FridaPlugin: run arg: " + str(arg))
+        logger.debug("[frida_tools] run arg: " + str(arg))
         start_server()
 
     @staticmethod
     def __custon_icon():
         current_path = os.path.dirname(os.path.abspath(__file__))
-        logger.debug(f"FridaPlugmod: Custon icon path is {current_path}/resources/frida.png")
+        logger.debug(f"[frida_tools] Custon icon path is {current_path}/resources/frida.png")
         return ida_kernwin.load_custom_icon(file_name=current_path + "/resources/frida.png", format="png")
 
     def create_popup_menu(self, arg):
-        logger.info(f"Frida Plugmod is loaded arg: {arg}")
+        logger.info(f"[frida_tools] Frida Plugmod is loaded arg: {arg}")
         try:
             action_desc = action_desc_t(
                 self.__action_name,
@@ -146,14 +146,21 @@ class FridaPlugmod(plugmod_t):
             )
             register_status = ida_kernwin.register_action(action_desc)
             if register_status:
-                logger.success(f"Frida Plugmod is loaded: {register_status}")
+                logger.success(f"[frida_tools] Frida Plugmod is loaded: {register_status}")
                 self.__ui_hook.hook()
             # else:
-            #     logger.error("Frida Plugmod is loaded error")
+            #     logger.error("[frida_tools] Frida Plugmod is loaded error")
             #     if not ida_kernwin.unregister_action(self.__action_name):
-            #         logger.error("Frida Plugmod unregister error")
+            #         logger.error("[frida_tools] Frida Plugmod unregister error")
             #     if self.__ui_hook is not None:
             #         self.__ui_hook.unhook()
 
         except Exception as e:
-            logger.error(f"Frida Plugmod load error: {e.args}")
+            logger.error(f"[frida_tools] Frida Plugmod load error: {e.args}")
+
+    def unload(self):
+        logger.info("[frida_tools] Frida Plugmod is unloaded")
+        if self.__ui_hook is not None:
+            self.__ui_hook.unhook()
+        if not ida_kernwin.unregister_action(self.__action_name):
+            logger.error("[frida_tools] Frida Plugmod unregister error")

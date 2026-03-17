@@ -9,6 +9,7 @@ English | [简体中文](README-zh-CN.md)
 *   Simply press the shortcut key `F` in the assembly window to generate the `hook` code for the function where the current pointer is located.
 
 ```shell
+cd $HOME/.idapro/plugins/fridatools
 uv init
 uv sync
 pip install "mcp[cli]"
@@ -29,7 +30,7 @@ pip install "mcp[cli]"
 ## Linux & Mac
 
 ```shell
-rm -rf $HOME/.idapro/plugins/frida && git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/frida
+rm -rf $HOME/.idapro/plugins/fridatools && git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/fridatools
 ```
 
 ## List of features

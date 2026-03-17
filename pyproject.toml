@@ -1,6 +1,6 @@
 [project]
-name = "frida"
-version = "0.0.1"
+name = "fridatools"
+version = "0.0.2"
 description = "Generate frida hook script!"
 readme = "README.md"
 requires-python = ">=3.12.8"
@@ -8,4 +8,5 @@ dependencies = [
     "loguru>=0.7.3",
     "mcp[cli]>=1.9.1",
     "pyqt5>=5.15.11",
+    "pyside6>=6.10.2",
 ]

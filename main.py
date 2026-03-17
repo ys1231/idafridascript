@@ -7,19 +7,18 @@ import ida_ida
 import sys
 import ida_idaapi
 from loguru import logger
-
 from flutter_ssl_bypass import FlutterPlugmod
 from frida_ui import FridaPlugmod
 
 logger.remove()
-'''
+"""
 DEBUG INFO 
-'''
-logger.add(sys.stdout, level="DEBUG")
+"""
+logger.add(sys.stdout, level="INFO")
+
 
 class FridaPlugin(ida_idaapi.plugin_t):
-    __plugin_name = "Frida Tools"
-    __version = "0.0.1"
+    __plugin_name = "Frida_Tools"
     flags = ida_idaapi.PLUGIN_FIX | ida_idaapi.PLUGIN_MULTI
     comment = f"Generate frida hook script!"
     help = "Generate frida hook script, hotkey is Shift-F"
@@ -31,16 +30,18 @@ class FridaPlugin(ida_idaapi.plugin_t):
         self.__flutter_plugin = FlutterPlugmod()
 
     def init(self):
-        logger.info(">>>FridaPlugin: init.")
+        logger.info("[frida_tools] init.")
         self.__frida_plugin.create_popup_menu(1)
         self.__flutter_plugin.create_popup_menu()
         return self.__frida_plugin
 
     def term(self):
-        pass
+        self.__frida_plugin.unload()
+        self.__flutter_plugin.unload()
+
 
 def PLUGIN_ENTRY():
-    logger.info(f">>>FridaPlugin: Frida Tools install")
-    if 910 != ida_ida.inf_get_version():
-        logger.warning(">>>plugin: Plug-ins only support IDA 9.1.0 and above.")
+    logger.info(f"[frida_tools] Frida Tools install")
+    if 910 > ida_ida.inf_get_version():
+        logger.warning("[frida_tools] Plug-ins support IDA 9.0 and above.")
     return FridaPlugin()

@@ -148,3 +148,4 @@ package.json
 package-lock.json
 #.python-version
 .venv
+/IDAPython/
