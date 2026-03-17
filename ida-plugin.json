@@ -1,7 +1,7 @@
 {
   "IDAMetadataDescriptorVersion": 1,
   "plugin": {
-    "name": "Frida_Tools",
+    "name": "FridaTools",
     "entryPoint": "main.py",
     "version": "0.0.2",
     "idaVersions": [
@@ -25,7 +25,7 @@
       "macos-x86_64",
       "macos-aarch64"
     ],
-    "description": "一个用于生成frida脚本的ida插件/An ida plug-in for generating frida scripts",
+    "description": "一个用于生成frida脚本的ida/mcp插件/An ida/mcp plug-in for generating frida scripts",
     "logoPath": "resources/main.png",
     "categories": [
       "ui-ux-and-visualization",
@@ -33,7 +33,10 @@
     ],
     "keywords": [
       "hook",
-      "generate frida script"
+      "generate frida script",
+      "frida tools",
+      "frida",
+      "mcp"
     ],
     "license": "GPL-3.0",
     "pythonDependencies": [

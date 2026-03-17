@@ -32,7 +32,7 @@ pip install "mcp[cli]"
 ```shell
 rm -rf $HOME/.idapro/plugins/fridatools && git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/fridatools
 # No need proxy
-rm -rf $HOME/.idapro/plugins/fridatools && git clone https://gitlab.ys1231.cn/tools/idaproscripts/generatefridascript.git
+rm -rf $HOME/.idapro/plugins/fridatools && git clone https://gitlab.ys1231.cn/tools/idaproscripts/generatefridascript.git $HOME/.idapro/plugins/fridatools
 ```
 
 ## List of features

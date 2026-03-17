@@ -27,7 +27,7 @@ pip install "mcp[cli]"
 ```shell
 rm -rf $HOME/.idapro/plugins/fridatools && git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/fridatools
 # 不需要代理 优先使用
-rm -rf $HOME/.idapro/plugins/fridatools && git clone https://gitlab.ys1231.cn/tools/idaproscripts/generatefridascript.git
+rm -rf $HOME/.idapro/plugins/fridatools && git clone https://gitlab.ys1231.cn/tools/idaproscripts/generatefridascript.git $HOME/.idapro/plugins/fridatools
 ```
 
 ## 功能列表
