@@ -4,12 +4,25 @@ English | [简体中文](README-zh-CN.md)
 
 *   This is a plug-in script based on `IDA Pro 9.1` , which can generate `js` code of `frida hook` function in one click in the assembly window
 
+# How to install
+
+```shell
+hcli plugin install FridaTools
+```
+## Linux & Mac
+```shell
+rm -rf $HOME/.idapro/plugins/FridaTools && git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/FridaTools
+# No need proxy
+rm -rf $HOME/.idapro/plugins/FridaTools && git clone https://gitlab.ys1231.cn/tools/idaproscripts/generatefridascript.git $HOME/.idapro/plugins/FridaTools
+```
+## Windows can find the plug-in location clone by itself.
+
 # How to use
 
 *   Simply press the shortcut key `F` in the assembly window to generate the `hook` code for the function where the current pointer is located.
 
 ```shell
-cd $HOME/.idapro/plugins/fridatools
+cd $HOME/.idapro/plugins/FridaTools
 uv init
 uv sync
 pip install "mcp[cli]"
@@ -27,13 +40,7 @@ pip install "mcp[cli]"
 }
 ```
 
-## Linux & Mac
 
-```shell
-rm -rf $HOME/.idapro/plugins/fridatools && git clone https://github.com/ys1231/idafridascript.git $HOME/.idapro/plugins/fridatools
-# No need proxy
-rm -rf $HOME/.idapro/plugins/fridatools && git clone https://gitlab.ys1231.cn/tools/idaproscripts/generatefridascript.git $HOME/.idapro/plugins/fridatools
-```
 
 ## List of features
 
