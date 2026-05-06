@@ -32,7 +32,8 @@ pip install "mcp[cli]"
 {
     "mcpServers": {
         "idamcp": {
-            "serverUrl": "http://127.0.0.1:12345/sse"
+            "type": "sse",
+            "url": "http://127.0.0.1:12345/sse"
         }
     }
 }
