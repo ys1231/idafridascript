@@ -18,7 +18,7 @@ logger.add(sys.stdout, level="INFO")
 
 
 class FridaPlugin(ida_idaapi.plugin_t):
-    __plugin_name = "Frida_Tools"
+    __plugin_name = "FridaTools"
     flags = ida_idaapi.PLUGIN_FIX | ida_idaapi.PLUGIN_MULTI
     comment = f"Generate frida hook script!"
     help = "Generate frida hook script, hotkey is Shift-F"

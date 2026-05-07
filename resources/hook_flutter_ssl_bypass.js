@@ -1,6 +1,6 @@
 /**
- * Created by iyue on 2025/5/11 22:15.
- * 优先使用附加模式 spwan 可能会导致 app 异常
+ * Created by iyue on 2026/5/7 22:00.
+ * 失败可使用附加模式 spwan 可能会导致 app 异常
  */
 
 var module_name = MODULE_NAME
@@ -26,4 +26,4 @@ function main() {
     hook_ssl_verify_result(libflutter.base.add(func_start_offset))
 }
 
-setTimeout(main,0)
+setTimeout(main,2000)

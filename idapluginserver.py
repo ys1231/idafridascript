@@ -14,7 +14,7 @@ from mcp.server.fastmcp import FastMCP
 
 from flutter_ssl_bypass import FlutterHandler
 
-mcp = FastMCP("Frida_Tools")
+mcp = FastMCP("FridaTools")
 
 
 def execute() -> str | None:
