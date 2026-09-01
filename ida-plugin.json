@@ -3,12 +3,13 @@
   "plugin": {
     "name": "FridaTools",
     "entryPoint": "main.py",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "idaVersions": [
       "9.0",
       "9.1",
       "9.2",
-      "9.3"
+      "9.3",
+      "9.4"
     ],
     "authors": [
       {
@@ -41,9 +42,9 @@
     "license": "GPL-3.0",
     "pythonDependencies": [
       "loguru>=0.7.3",
-      "mcp[cli]>=1.9.1",
+      "mcp[cli]==2.1.1",
       "pyqt5>=5.15.11",
-      "pyside6>=6.10.2"
+      "pyside6==6.11.2"
     ]
   }
 }

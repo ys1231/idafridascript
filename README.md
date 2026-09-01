@@ -25,7 +25,8 @@ rm -rf $HOME/.idapro/plugins/FridaTools && git clone https://gitlab.ys1231.cn/to
 cd $HOME/.idapro/plugins/FridaTools
 uv init
 uv sync
-pip install "mcp[cli]"
+# or 
+pip install -r requirements.txt
 ```
 ```json
 {

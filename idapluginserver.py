@@ -10,11 +10,12 @@ import idautils
 from ida_funcs import get_func, func_t
 from ida_nalt import get_root_filename
 from loguru import logger
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
+# from mcp.server.fastmcp import FastMCP
 
 from flutter_ssl_bypass import FlutterHandler
 
-mcp = FastMCP("FridaTools")
+mcp = MCPServer("FridaTools")
 
 
 def execute() -> str | None:
