@@ -22,10 +22,6 @@ rm -rf $HOME/.idapro/plugins/FridaTools && git clone https://gitlab.ys1231.cn/to
 *   Simply press the shortcut key `F` in the assembly window to generate the `hook` code for the function where the current pointer is located.
 
 ```shell
-cd $HOME/.idapro/plugins/FridaTools
-uv init
-uv sync
-# or 
 pip install -r requirements.txt
 ```
 ```json
@@ -49,6 +45,12 @@ pip install -r requirements.txt
 
 
 # How to continue development
+
+```shell
+cd $HOME/.idapro/plugins/FridaTools
+uv init
+uv sync
+```
 
 1. After using the `clone` project, open the project with `Pycharm` and add `IDA Pro` plug-in development environment
 

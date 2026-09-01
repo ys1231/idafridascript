@@ -23,10 +23,6 @@ rm -rf $HOME/.idapro/plugins/FridaTools && git clone https://gitlab.ys1231.cn/to
 
 *   只要在汇编窗口中按下快捷键 `F` ，就可以生成当前指针所在函数的 `hook` 代码。
 ```shell
-cd $HOME/.idapro/plugins/FridaTools
-uv init
-uv sync
-# or 
 pip install -r requirements.txt
 ```
 ```json
@@ -49,6 +45,12 @@ pip install -r requirements.txt
 3. 新增丐版 mcp server，用于在 IDA Pro 中使用可生成 flutter bypass hook 代码的脚本
 
 # 如何继续发展
+
+```shell
+cd $HOME/.idapro/plugins/FridaTools
+uv init
+uv sync
+```
 
 1. 使用 `clone` 项目后，用 `Pycharm` 打开项目，添加 `IDA Pro` 插件开发环境
 
