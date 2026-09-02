@@ -29,8 +29,8 @@ pip install -r requirements.txt
 {
     "mcpServers": {
         "idamcp": {
-            "type": "sse",
-            "url": "http://127.0.0.1:12345/sse"
+            "type": "http",
+            "url": "http://127.0.0.1:12345/mcp"
         }
     }
 }
