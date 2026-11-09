@@ -57,6 +57,9 @@ class FlutterHandler(ida_kernwin.action_handler_t):
         ea_list = []
         for xref in idautils.XrefsTo(ssl_client_ea, 0):
             func: func_t = get_func(xref.frm)
+            if func is None:
+                logger.info(f"[frida_tools] func is None, {hex(xref.frm) is not func}")
+                continue
             logger.debug(f"[frida_tools] func start offset: {hex(func.start_ea)}")
             ea_list.append(func)
         data["func_start_offset"] = self.__check_func(ea_list)
