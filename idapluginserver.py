@@ -53,7 +53,7 @@ def how_to_use():
 
 
 def startASYNC():
-    mcp.run(transport="streamable-http", host="0.0.0.0", port=12345)
+    mcp.run(transport="streamable-http", host="0.0.0.0", port=62345)
 
 
 def start_server():

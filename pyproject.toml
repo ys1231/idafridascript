@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12.8"
 dependencies = [
     "loguru>=0.7.3",
-    "mcp[cli]==2.1.1",
+    "mcp[cli]==2.3.0",
     "pyqt5>=5.15.11",
     "pyrefly>=0.60.0",
     "pyside6==6.11.2",

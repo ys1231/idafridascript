@@ -29,7 +29,7 @@ pip install -r requirements.txt
     "mcpServers": {
         "idamcp": {
             "type": "http",
-            "url": "http://127.0.0.1:12345/mcp"
+            "url": "http://127.0.0.1:62345/mcp"
         }
     }
 }
